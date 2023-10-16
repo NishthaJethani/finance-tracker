@@ -1,0 +1,29 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Finance Tracker</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Finance Tracker</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'expenses:home' %}">Expense List</a></li>
+                <li><a href="{% url 'expenses:expense-create' %}">Add Expense</a></li>
+            </ul>
+        </nav>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+<link rel="stylesheet" type="text/css" href="{% static 'expenses/styles.css' %}">
+
+</body>
+</html>
