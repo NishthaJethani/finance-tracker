@@ -1,29 +1,35 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Finance Tracker</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}Your Project Title{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'expenses/styles.css' %}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Your Finance Tracker</h1>
-        </header>
+    <header>
         <nav>
             <ul>
-                <li><a href="{% url 'expenses:home' %}">Expense List</a></li>
-                <li><a href="{% url 'expenses:expense-create' %}">Add Expense</a></li>
+                <li><a href="/">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'expenses:expense-home' %}">Expense List</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:login' %}">Login</a></li>
+                    <li><a href="{% url 'users:register' %}">Register</a></li>
+                {% endif %}
             </ul>
         </nav>
-        <div class="content">
-            {% block content %}
-            {% endblock %}
-        </div>
+    </header>
+    
+    <div class="content">
+        {% block content %}
+        <!-- Content for child templates will go here -->
+        {% endblock %}
     </div>
 
-<link rel="stylesheet" type="text/css" href="{% static 'expenses/styles.css' %}">
-
+    <footer>
+        <!-- Footer content -->
+    </footer>
 </body>
 </html>
