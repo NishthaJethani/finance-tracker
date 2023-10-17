@@ -25,3 +25,4 @@ class ExpenseListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Expense.objects.filter(user=self.request.user)
+

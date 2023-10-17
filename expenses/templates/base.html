@@ -14,20 +14,38 @@
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'expenses:expense-home' %}">Home</a></li>
                 <li><a href="{% url 'users:logout' %}">Logout</a></li>
-
                 {% else %}
-                    <li><a href="{% url 'users:login' %}">Login</a></li>
-                    <li><a href="{% url 'users:register' %}">Register</a></li>
+                <li><a href="{% url 'users:login' %}">Login</a></li>
+                <li><a href="{% url 'users:register' %}">Register</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
     
-    <div class="content">
-        {% block content %}
-        <!-- Content for child templates will go here -->
-        {% endblock %}
+
+    <div class="homepage-container">
+        {% if user.is_authenticated %}
+        <a href="{% url 'expenses:expense-create' %}" class="cta-button">Add an Expense</a>
+        {% else %}
+        <section class="homepage">
+            <div class="homepage-text">
+                <h1>Welcome to Your Finance Tracker</h1>
+                <p>Effortlessly manage your finances with our budget tracking and expense management tool.</p>
+            </div>
+            <div class="cta-button-container">
+
+                <a href="{% url 'users:register' %}" class="cta-button">Get Started</a>
+                <a href="{% url 'users:login' %}" class="cta-button">Log In</a>
+            </div>
+        </section>
+        {% endif %}
     </div>
+
+
+    
+    {% block content %}
+    {% endblock %}
+
 
     <footer>
         <!-- Footer content -->

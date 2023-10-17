@@ -3,7 +3,7 @@
 {% block content %}
     
     <div class="table-container">
-      <h2>Expense List</h2>
+      <h2>Expenses</h2>
         <table class="expense-table">
             <thead>
                 <tr>
@@ -16,10 +16,11 @@
             <tbody>
                 {% for expense in expenses %}
                     <tr>
-                        <td>{{ expense.category }}</td>
-                        <td>${{ expense.amount|floatformat:2 }}</td>
-                        <td>{{ expense.date|date:"M d, Y" }}</td>
                         <td>{{ expense.description }}</td>
+                        <td>₹{{ expense.amount|floatformat:2 }}</td>
+                        <td>{{ expense.category }}</td>
+                        <td>{{ expense.date|date:"M d, Y" }}</td>
+                        
                     </tr>
                 {% empty %}
                     <tr>

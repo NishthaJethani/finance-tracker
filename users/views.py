@@ -24,3 +24,6 @@ class CustomLogoutView(LogoutView):
 
 class CustomLogoutSuccessView(TemplateView):
     template_name = 'logged_out.html'
+
+class HomeView(TemplateView):
+    template_name = 'base.html'
