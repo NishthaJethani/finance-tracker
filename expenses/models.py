@@ -5,12 +5,13 @@ from django.utils import timezone
 
 
 CATEGORY_CHOICES = [
-    {'breakfast', 'Breakfast'},
-    {'lunch', 'Lunch'},
-    ('dinner', 'Dinner'),
-    ('snacks', 'Snacks'),
-    ('entertainment', 'Entertainment'),
-    ('travel', 'Travel'),
+        ('Breakfast', 'Breakfast'),
+        ('Lunch', 'Lunch'),
+        ('Dinner', 'Dinner'),
+        ('Snacks', 'Snacks'),
+        ('Entertainment', 'Entertainment'),
+        ('Travel', 'Travel'),
+
 ]
 
 

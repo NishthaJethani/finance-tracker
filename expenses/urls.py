@@ -6,4 +6,5 @@ app_name = 'expenses'
 urlpatterns = [
     path('', ExpenseListView.as_view(), name='expense-home'),
     path('create/', ExpenseCreateView.as_view(), name='expense-create'),
+    
 ]
