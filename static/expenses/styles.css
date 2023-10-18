@@ -38,6 +38,7 @@ nav ul a{
     color: white;
     font-size: larger;
     padding: 0;
+    text-decoration: none;
 }
 
 nav ul li {
