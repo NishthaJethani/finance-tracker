@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import Expense
 from .forms import ExpenseForm
@@ -26,3 +26,13 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Expense.objects.filter(user=self.request.user)
 
+class ExpenseUpdateView(UpdateView):
+    model = Expense
+    template_name = 'expense_edit.html'
+    fields = ['category', 'amount', 'date', 'description']
+    success_url = '/expenses/'
+
+class ExpenseDeleteView(DeleteView):
+    model = Expense
+    template_name = 'expense_confirm_delete.html'
+    success_url = '/expenses/'
