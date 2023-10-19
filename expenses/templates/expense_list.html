@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div class="homepage-container">
+        <a href="{% url 'expenses:expense-create' %}" class="cta-button">Add an Expense</a>
+    </div>
     
     <div class="table-container">
-      <h2>Expenses</h2>
+        <h2>Expenses</h2>
+
+        <form method="get" class="date-filter-form">
+            <label for="start_date">Start Date:</label>
+            <input type="date" name="start_date" id="start_date" value="{{ request.GET.start_date }}">
+            <label for="end_date">End Date:</label>
+            <input type="date" name="end_date" id="end_date" value="{{ request.GET.end_date }}">
+            <button type="submit">Apply</button>
+        </form>
+      <p>Total Expenses: ₹{{ total_expenses }}</p>
+
         <table class="expense-table">
             <thead>
                 <tr>
@@ -21,7 +34,7 @@
                         <td>₹{{ expense.amount|floatformat:2 }}</td>
                         <td>{{ expense.category }}</td>
                         <td>{{ expense.date|date:"M d, Y" }}</td>
-                        <td><a href="{% url 'expenses:expense-edit' expense.pk %}" class="edit-button">✏️</a></td>
+                        <td><a href="{% url 'expenses:expense-edit' pk=expense.pk %}" class="edit-button">✏️</a></td>
 
                     </tr>
                 {% empty %}

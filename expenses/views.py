@@ -5,6 +5,10 @@ from .models import Expense
 from .forms import ExpenseForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from datetime import date, timedelta, datetime
+import calendar
+
+
 
 # Create your views here.
 
@@ -24,7 +28,35 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     context_object_name = 'expenses'
 
     def get_queryset(self):
-        return Expense.objects.filter(user=self.request.user)
+        start_date = self.request.GET.get('start_date')
+        end_date = self.request.GET.get('end_date')
+
+        if start_date and end_date:
+            start_date = datetime.strptime(start_date, '%Y-%m-%d')
+            end_date = datetime.strptime(end_date, '%Y-%m-%d')
+            return Expense.objects.filter(user=self.request.user, date__range=(start_date, end_date))
+        else:
+            # If no dates provided, display all expenses
+            return Expense.objects.filter(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        start_date = self.request.GET.get('start_date')
+        end_date = self.request.GET.get('end_date')
+        
+        if start_date and end_date:
+            start_date = datetime.strptime(start_date, '%Y-%m-%d')
+            end_date = datetime.strptime(end_date, '%Y-%m-%d')
+            expenses = Expense.objects.filter(user=self.request.user, date__range=(start_date, end_date))
+        else:
+            # If no dates provided, display all expenses
+            expenses = Expense.objects.filter(user=self.request.user)
+        
+        total_expenses = sum(expense.amount for expense in expenses)
+        context['total_expenses'] = total_expenses
+        return context
+
 
 class ExpenseUpdateView(UpdateView):
     model = Expense
@@ -36,3 +68,4 @@ class ExpenseDeleteView(DeleteView):
     model = Expense
     template_name = 'expense_confirm_delete.html'
     success_url = '/expenses/'
+
