@@ -7,7 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from datetime import date, timedelta, datetime
 from django.views.generic.base import TemplateView
-
+from django.db.models import Sum
+from django.core import serializers
+from django.http import JsonResponse
+import json
+from decimal import Decimal
 
 
 # Create your views here.
@@ -69,7 +73,37 @@ class ExpenseDeleteView(DeleteView):
     template_name = 'expense_confirm_delete.html'
     success_url = '/expenses/'
 
+
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return super(DecimalEncoder, self).default(obj)
+
+
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'
 
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Query for monthly expenses
+        monthly_expenses = Expense.objects.filter(
+            date__year=self.request.user.date_joined.year,
+            date__month=self.request.user.date_joined.month
+        ).values('category').annotate(total=Sum('amount')).order_by('category')
+
+        # Query for daily expenses in the current month
+        daily_expenses = Expense.objects.filter(
+            date__year=self.request.user.date_joined.year,
+            date__month=self.request.user.date_joined.month
+        ).values('date').annotate(total=Sum('amount')).order_by('date')
+
+        # Serialize data as JSON
+        monthly_expenses_json = json.dumps(list(monthly_expenses), default=str)
+        daily_expenses_json = json.dumps(list(daily_expenses), default=str)
+
+        context['monthly_expenses'] = monthly_expenses_json
+        context['daily_expenses'] = daily_expenses_json
+
+        return context

@@ -4,17 +4,80 @@
 <div class="dashboard">
     <div class="chart-section">
         <h2>Pie Chart: Expense Categories</h2>
-        <canvas id="pieChart" width="400" height="400"></canvas>
+        <canvas id="pieChart" width="100" height="100"></canvas>
     </div>
 
     <div class="chart-section">
         <h2>Line Chart: Daily Spending</h2>
-        <canvas id="lineChart" width="400" height="200"></canvas>
+        <canvas id="lineChart" width="200" height="100"></canvas>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // JavaScript code to create and populate charts
+    document.addEventListener('DOMContentLoaded', function() {
+        var pieChartCanvas = document.getElementById('pieChart');
+        var lineChartCanvas = document.getElementById('lineChart');
+
+        var monthlyExpenses = JSON.parse('{{ monthly_expenses|safe }}');
+        var dailyExpenses = JSON.parse('{{ daily_expenses|safe }}');
+
+        if (pieChartCanvas) {
+            var pieChart = new Chart(pieChartCanvas, {
+                type: 'pie',
+                data: {
+                    labels: monthlyExpenses.map(expense => expense.category),
+                    datasets: [{
+                        data: monthlyExpenses.map(expense => expense.total),
+                        backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple', 'orange'],
+                    }],
+                },
+            });
+        }
+
+        if (lineChartCanvas) {
+            // Prepare data for the line chart (modify this part to meet your needs)
+            var dailyExpensesData = {
+                labels: dailyExpenses.map(expense => expense.date),
+                datasets: [
+                    {
+                        label: 'Daily Spending',
+                        data: dailyExpenses.map(expense => expense.total),
+                        borderColor: 'blue',
+                        borderWidth: 2,
+                        fill: false,
+                    },
+                ],
+            };
+
+            var lineChart = new Chart(lineChartCanvas, {
+                type: 'line',
+                data: dailyExpensesData,
+                options: {
+                    scales: {
+                        x: [
+                            {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Date',
+                                },
+                            },
+                        ],
+                        y: [
+                            {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Total Spending',
+                                },
+                            },
+                        ],
+                    },
+                },
+            });
+        }
+    });
 </script>
 {% endblock %}
