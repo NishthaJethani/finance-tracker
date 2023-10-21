@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Your Project Title{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'expenses/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'common/styles.css' %}">
 </head>
 <body>
     <header>
@@ -13,7 +13,10 @@
             <ul>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'expenses:expense-home' %}">Home</a></li>
+                <li><a href="{% url 'expenses:dashboard' %}">Home</a></li>
+                <li><a href="{% url 'users:profile' %}">Profile</li>
                 <li><a href="{% url 'users:logout' %}">Logout</a></li>
+
                 {% else %}
                 <li><a href="{% url 'users:login' %}">Login</a></li>
                 <li><a href="{% url 'users:register' %}">Register</a></li>

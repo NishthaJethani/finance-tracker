@@ -6,7 +6,7 @@ from .forms import ExpenseForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from datetime import date, timedelta, datetime
-import calendar
+from django.views.generic.base import TemplateView
 
 
 
@@ -69,3 +69,7 @@ class ExpenseDeleteView(DeleteView):
     template_name = 'expense_confirm_delete.html'
     success_url = '/expenses/'
 
+class DashboardView(TemplateView):
+    template_name = 'dashboard.html'
+
+    
