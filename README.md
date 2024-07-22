@@ -20,10 +20,10 @@ The Finance Tracking Software is a comprehensive tool developed to assist indivi
 
 **2 ER DIAGRAM**
 
-![](ER Diagram.png)
+![](screenshots/ERDiagram.png)
 
 
-![](Tables.png)
+![](screenshots/Tables.png)
 
 
 **3 SCREENSHOTS**
@@ -31,13 +31,13 @@ The Finance Tracking Software is a comprehensive tool developed to assist indivi
 
 **Home Page:**
 
-![](home_page.jpeg)
+![](screenshots/home_page.jpeg)
 
 
 
 **Register Page:**
 
-![](register.jpeg)
+![](screenshots/register.jpeg)
 
 
 
@@ -47,26 +47,26 @@ The Finance Tracking Software is a comprehensive tool developed to assist indivi
 
 **Login Page:**
 
-![](login.jpeg)
+![](screenshots/login.jpeg)
 
 
 
 **Add expenses:**
 
-![](add.jpeg)
+![](screenshots/add.jpeg)
 
 
 
 
 **Expense Table:**
 
-![](expenses.jpeg)
+![](screenshots/expenses.jpeg)
 
 
 
 **Deleting the earlier expenses:**
 
-![](delete.jpeg)
+![](screenshots/delete.jpeg)
 
 
 
@@ -75,7 +75,7 @@ The Finance Tracking Software is a comprehensive tool developed to assist indivi
 
 **Logout of the User:**
 
-![](logout.jpeg)
+![](screenshots/logout.jpeg)
 
 
 
