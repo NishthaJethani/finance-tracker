@@ -129,7 +129,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'finance_tracker',
         'USER': 'root',
-        'PASSWORD': 'Krishaamj1709',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',
     }

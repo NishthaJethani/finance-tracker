@@ -22,5 +22,7 @@ class Expense(models.Model):
     date = models.DateField(default=timezone.now)
     description = models.TextField()
 
+    def __str__(self):
+        return f'{self.category}: {self.amount}'
 
     
